@@ -233,4 +233,4 @@ ggplot() +
   theme_bw() 
 
 
-ggsave(filename = "figures/study_area_map.png", width = 12)
+ggsave(filename = "figures/study_area_map.png", width = 8, height = 4)
