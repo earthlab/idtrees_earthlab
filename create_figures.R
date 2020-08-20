@@ -168,7 +168,7 @@ ggplot(aes(x=reorder(taxonID, desc(taxonID)), y=nCrowns)) +
         axis.title=element_text(size=14))
 
 # save to image file 
-ggsave(filename = "figures/taxonID_histogram.png")
+ggsave(filename = "figures/taxonID_histogram.pdf")
 
 
 # STUDY AREA map  ---------------------------------------------------
@@ -192,8 +192,13 @@ domains_of_interest <- neon_domains[neon_domains$DomainID == 7 |
                                     # 2 Mid Atlantic
                                     neon_domains$DomainID == 3 |
                                     # 3 Southeast
-                                    neon_domains$DomainID == 1, ]
-                                    # 1 Northeast
+                                    neon_domains$DomainID == 1 | 
+                                      # 1 Northeast
+                                    neon_domains$DomainID == 6, ]
+                                    # 6 Prairie Peninsula
+                                    
+                                    
+                                    
 
 
 
@@ -233,4 +238,4 @@ ggplot() +
   theme_bw() 
 
 
-ggsave(filename = "figures/study_area_map.png", width = 8, height = 4)
+ggsave(filename = "figures/study_area_map.pdf")
