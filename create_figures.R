@@ -150,7 +150,7 @@ species_table <- xtable(rgb_taxonID_counts %>%
        digits = c(0))
 
 # rename columns
-names(species_table) = c("Taxon ID", "Scientific Name", "Common name", "Count")
+names(species_table) = c("Taxon code", "Scientific name", "Common name", "Count")
 
 # print table as latex code in console 
 print(species_table, include.rownames=FALSE)
