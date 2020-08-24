@@ -145,11 +145,12 @@ rgb_taxonID_counts <- data.frame(taxonID = c("ACPE",
   
 # create table with latex code 
 species_table <- xtable(rgb_taxonID_counts %>%
-         select(taxonID, genusSpecies, commonName),
+         select(taxonID, genusSpecies, commonName, nCrowns) %>% 
+           arrange(desc(nCrowns)),
        digits = c(0))
 
 # rename columns
-names(species_table) = c("Taxon ID", "Scientific Name", "Common name")
+names(species_table) = c("Taxon ID", "Scientific Name", "Common name", "Count")
 
 # print table as latex code in console 
 print(species_table, include.rownames=FALSE)
@@ -160,15 +161,46 @@ print(species_table, include.rownames=FALSE)
 rgb_taxonID_counts %>%
 ggplot(aes(x=reorder(taxonID, desc(taxonID)), y=nCrowns)) +
   geom_bar(stat="identity", fill = "slategray4") +
+  # add label with count to each bar
+  geom_text(aes(label=nCrowns), hjust=-0.25) + 
   theme_minimal() + 
-  labs(x = "Taxon code",
-       y = "Number of individuals") + 
+  labs(x = "Taxon code"
+       ,y = "Number of individuals"
+       ) + 
   coord_flip() + 
   theme(axis.text=element_text(size=12),
-        axis.title=element_text(size=14))
+        axis.title=element_text(size=14)) + 
+  # set x limits a bit higher to avoid cutting off label for long bar
+  ylim(0, max(rgb_taxonID_counts$nCrowns) + 20)
 
 # save to image file 
 ggsave(filename = "figures/taxonID_histogram.pdf")
+
+
+
+# HISTOGRAM of species counts ---------------------------------------
+# MINIMAL labels, meant for putting next to table in latex
+rgb_taxonID_counts %>%
+  ggplot(aes(x=reorder(taxonID, desc(taxonID)), y=nCrowns)) +
+  geom_bar(stat="identity", fill = "slategray4") +
+  # add label with count to each bar
+  #geom_text(aes(label=nCrowns), hjust=-0.25) + 
+  theme_minimal() + 
+  labs(x = ""
+       ,y=""
+       #,x = "Taxon code"
+       #,y = "Number of individuals"
+  ) + 
+  coord_flip() + 
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14)) + 
+  # set x limits a bit higher to avoid cutting off label for long bar
+  ylim(0, max(rgb_taxonID_counts$nCrowns) + 20)
+
+# save to image file 
+ggsave(filename = "figures/taxonID_histogram_simple.pdf", width=3)
+
+
 
 
 # STUDY AREA map  ---------------------------------------------------
