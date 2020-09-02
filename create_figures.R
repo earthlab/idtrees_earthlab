@@ -7,6 +7,8 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(USAboundaries)
 library(ggspatial)
+library(readr)
+library(forcats)
 
 # create output directory
 dir.create("figures")
@@ -271,3 +273,58 @@ ggplot() +
 
 
 ggsave(filename = "figures/study_area_map.pdf")
+
+
+
+# confusion matrix --------------------------------------------------------
+
+# read .csv(?) with confusion matrix data, exported from CoLab
+cm <- readr::read_csv("data/eval-confusion.csv")
+# X1 is TRUE species label
+# colnames are PREDICTED species labels 
+
+cm_long <- pivot_longer(cm, 
+                        cols = starts_with("pred"), 
+                        names_to = "pred") %>% 
+  rename(obs = X1, n = value) %>% 
+  mutate(pred = gsub("pred_", "", pred))
+  
+
+# 3 columns: obs, pred, n
+# need a row for every combination of obs,pred species
+# n is the count that fills each confusion matrix cell
+
+
+# add nice formatting using ggplot 
+cm_long %>% 
+  ggplot(aes(x = obs, 
+             y = fct_rev(pred), 
+             fill = n)) + 
+  geom_raster() + 
+  # add boxes around diagonal cells
+  geom_tile(aes(color = obs == pred, width = 0.95, height = 0.95), size = 0.5) + 
+  scale_color_manual(values = c(NA, "black")) + 
+  # rotate x axis text 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  # fastai validation set (subset from training data
+  labs(x = "True", y = "Predicted", 
+       title = "Tabular model confusion matrix: predicted vs. true label for validation set") + 
+  scale_fill_gradient(low = "white", high = "#31a354") + 
+  # add count in each cell
+  geom_text(aes(label = n, alpha = n > 0)) + 
+  # remove the color legend
+  #guides(color = "none", alpha = "none")
+  # remove legend entirely
+  theme(legend.position = "none")
+
+
+# export as pdf for manuscript figure 
+ggsave(filename = "figures/cm_tabular.pdf")
+
+
+
+
+
+
+
+
