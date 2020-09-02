@@ -322,7 +322,7 @@ cm_long %>%
 ggsave(filename = "figures/cm_tabular.pdf")
 
 
-
+# calculate overall accuracy 
 
 
 
