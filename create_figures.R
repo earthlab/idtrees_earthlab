@@ -242,12 +242,18 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 # get states data (admin level 1 in USA)
 states <- USAboundaries::us_states()
 
+# remove areas within the states that are outside of NEON domains
+# to fix weird edge artifact
+states_cleaned <- sf::st_intersection(states, domains_of_interest)
+
 # make a map with a scale bar and north arrow using the ggspatial package 
 ggplot() +
   # add world map boundaries
   #geom_sf(data = world) +
   # add state boundaries
-  geom_sf(data = states, fill="grey", color="gray60", alpha=0.5) + 
+  #geom_sf(data = states, fill="grey", color="gray60", alpha=0.5) + 
+  # add cleaned state boundaries
+  geom_sf(data = states_cleaned, fill="grey", color="gray60", alpha=0.5) + 
   # add NEON domain boundaries 
   geom_sf(data = domains_of_interest, aes(fill = factor(DomainName)), 
           alpha = 0.7, color = "gray40") + 
@@ -272,7 +278,11 @@ ggplot() +
   theme_bw() 
 
 
-ggsave(filename = "figures/study_area_map.pdf")
+ggsave(filename = "figures/study_area_map.pdf",
+       width = 7, height = 5)
+
+
+
 
 
 
@@ -319,7 +329,8 @@ cm_long %>%
 
 
 # export as pdf for manuscript figure 
-ggsave(filename = "figures/cm_tabular.pdf")
+ggsave(filename = "figures/cm_tabular.pdf",
+       width = 7, height = 7)
 
 
 # calculate overall accuracy 
