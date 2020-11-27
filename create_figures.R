@@ -334,8 +334,13 @@ ggsave(filename = "figures/cm_tabular.pdf",
 
 
 # calculate overall accuracy 
+# correct predictions along the diagonal where predicted label == true label
+correct_counts <- cm_long[cm_long$obs==cm_long$pred,]
 
+# divide correct predictions by total number of predictions 
+oa <- sum(correct_counts$n) / sum(cm_long$n)
 
-
+print("Overall accuracy based on the confusion matrix:")
+print(oa)
 
 
