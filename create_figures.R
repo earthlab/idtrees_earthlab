@@ -343,4 +343,6 @@ oa <- sum(correct_counts$n) / sum(cm_long$n)
 print("Overall accuracy based on the confusion matrix:")
 print(oa)
 
+# which species were classified most accurately? 
+correct_counts[correct_counts$n>0,] %>% arrange(desc(n))
 
