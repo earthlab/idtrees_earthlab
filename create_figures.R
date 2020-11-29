@@ -287,6 +287,7 @@ ggsave(filename = "figures/study_area_map.pdf",
 
 
 # confusion matrix --------------------------------------------------------
+# BASED ON 20% VALIDATION SET, WITHHELD FROM TRAINING DATA 
 
 # read .csv(?) with confusion matrix data, exported from CoLab
 cm <- readr::read_csv("data/eval-confusion.csv")
@@ -345,4 +346,51 @@ print(oa)
 
 # which species were classified most accurately? 
 correct_counts[correct_counts$n>0,] %>% arrange(desc(n))
+
+
+# confusion matrix --------------------------------------------------------
+# COMPETITION EVALUATION including previously unseen species and "other" class
+
+# read the reduced confusion matrix 
+# "The reduced confusion matrix has grouped the untrained taxonIDs into a 
+# single class called “Other”. This was done to see the direct match between 
+# the predictions of “Other” class by the participants, and the correct label 
+# of “Other”. This reduced version of the confusion matrix was used for the 
+# classification report.
+cm_reduced <- readr::read_csv(here::here("data","report","Treepers_confusion_matrix_reduced.csv"))
+
+# reshape into a tidy data frame where each row represents an observation
+cm_reduced_long <- pivot_longer(cm_reduced, 
+                        cols = !X1, 
+                        names_to = "pred") %>% 
+  rename(obs = X1, n = value) 
+
+# 3 columns: obs, pred, n
+
+# add nice formatting using ggplot 
+cm_reduced_long %>% 
+  ggplot(aes(x = pred, 
+             y = fct_rev(obs), 
+             fill = n)) + 
+  geom_raster() + 
+  # add boxes around diagonal cells
+  geom_tile(aes(color = obs == pred, width = 0.95, height = 0.95), size = 0.5) + 
+  scale_color_manual(values = c(NA, "black")) + 
+  # rotate x axis text 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  # fastai validation set (subset from training data
+  labs(x = "Predicted", y = "True", 
+       title = "Confusion matrix: true vs. predicted label for competition test set") + 
+  scale_fill_gradient(low = "white", high = "#3180A3") + 
+  # add count in each cell
+  geom_text(aes(label = n, alpha = n > 0)) + 
+  # remove the color legend
+  #guides(color = "none", alpha = "none")
+  # remove legend entirely
+  theme(legend.position = "none")
+
+
+# export as pdf for manuscript figure 
+ggsave(filename = "figures/cm_competition_result.pdf",
+       width = 7, height = 7)
 
