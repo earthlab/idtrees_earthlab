@@ -1,3 +1,14 @@
+# This script creates the following figures for our IDTReeS manuscript: 
+#   - table with LaTeX formatting with taxon information
+#   - Histogram of taxon counts
+#   - Study area map
+#   - Confusion matrices for training and test sets
+# 
+# Author: 
+#   Victoria Scholl et al. 
+
+
+
 library(dplyr) 
 library(tidyr)
 library(xtable)
