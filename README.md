@@ -17,7 +17,7 @@ We utilized three of the four available remote sensing data types:
 
 ### Code 
 
-Our workflow includes the following components: 
+Our workflow includes the following major computational steps: 
 
 File or source | Processing step | Coding language or tool 
 ---- | --------------- | -------------
