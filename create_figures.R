@@ -220,6 +220,7 @@ ggsave(filename = "figures/taxonID_histogram_simple.pdf", width=3)
 
 # NEON site locations
 # downloaded from: https://www.neonscience.org/data/about-data/spatial-data-maps
+# placed in "data" folder at the top level of this repo
 neon_sites <- sf::st_read("data/NEON_Field_Sites_v17.shp")
 neon_domains <- sf::st_read("data/NEON_Domains.shp")
 
@@ -300,7 +301,8 @@ ggsave(filename = "figures/study_area_map.pdf",
 # confusion matrix --------------------------------------------------------
 # BASED ON 20% VALIDATION SET, WITHHELD FROM TRAINING DATA 
 
-# read .csv(?) with confusion matrix data, exported from CoLab
+# read .csv(?) with confusion matrix data, exported from CoLab, 
+# placed in "data" folder at the top level of this repo
 cm <- readr::read_csv("data/eval-confusion.csv")
 # X1 is TRUE species label
 # colnames are PREDICTED species labels 
@@ -362,7 +364,7 @@ correct_counts[correct_counts$n>0,] %>% arrange(desc(n))
 # confusion matrix --------------------------------------------------------
 # COMPETITION EVALUATION including previously unseen species and "other" class
 
-# read the reduced confusion matrix 
+# read the reduced confusion matrix provided by the competition organizers. 
 # "The reduced confusion matrix has grouped the untrained taxonIDs into a 
 # single class called “Other”. This was done to see the direct match between 
 # the predictions of “Other” class by the participants, and the correct label 
@@ -405,3 +407,13 @@ cm_reduced_long %>%
 ggsave(filename = "figures/cm_competition_result.pdf",
        width = 7, height = 7)
 
+# how many individuals with true label "Other" did we predict correctly/incorrectly
+rows_other <- cm_reduced_long[cm_reduced_long$obs == "Other",]
+rows_other_correct <- rows_other[rows_other$pred == "Other",]
+rows_other_incorrect <- rows_other[rows_other$pred != "Other",]
+
+print("Correctly identified this many individuals as class Other:")
+print (rows_other_correct$n)
+
+print("Incorrectly identified this many individuals as class Other: ")
+print(sum(rows_other_incorrect$n))
