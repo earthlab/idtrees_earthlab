@@ -417,3 +417,6 @@ print (rows_other_correct$n)
 
 print("Incorrectly identified this many individuals as class Other: ")
 print(sum(rows_other_incorrect$n))
+
+print("Proportion correctly identified:")
+print(rows_other_correct$n / sum(rows_other_incorrect$n))
