@@ -17,9 +17,9 @@ We utilized three of the four available remote sensing data types:
 
 ### Code 
 
-Our workflow includes the following components: 
+Our workflow includes the following major computational steps: 
 
-File | Processing step | Coding language or tool 
+File or source | Processing step | Coding language or tool 
 ---- | --------------- | -------------
 notebooks/file.ipynb | Resnet CNN to generate a probability for each taxon class from the RGB images | Google Colab, Python
 https://github.com/earthlab/neonhs | Extract hyperspectral data at each tree crown centroid | R
