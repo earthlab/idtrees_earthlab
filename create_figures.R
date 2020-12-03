@@ -290,7 +290,7 @@ ggplot() +
   theme_bw() 
 
 
-ggsave(filename = "figures/study_area_map.pdf",
+ggsave(filename = "figures/figure_1_study_area_map.pdf",
        width = 7, height = 5)
 
 
@@ -343,7 +343,7 @@ cm_long %>%
 
 
 # export as pdf for manuscript figure 
-ggsave(filename = "figures/cm_tabular.pdf",
+ggsave(filename = "figures/figure_7_confusion_matrix_tabular.pdf",
        width = 7, height = 7)
 
 
@@ -404,7 +404,7 @@ cm_reduced_long %>%
 
 
 # export as pdf for manuscript figure 
-ggsave(filename = "figures/cm_competition_result.pdf",
+ggsave(filename = "figures/figure_8_confusion_matrix_competition_results.pdf",
        width = 7, height = 7)
 
 # how many individuals with true label "Other" did we predict correctly/incorrectly
