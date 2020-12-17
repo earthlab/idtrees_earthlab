@@ -21,9 +21,9 @@ Our workflow includes the following major computational steps:
 
 Processing step | File or source | Coding language or tool 
 ---- | --------------- | -------------
-(1) Resnet CNN to generate a probability for each taxon class from the RGB images | notebooks/file.ipynb | Google Colab, Python
+(1) Resnet CNN to generate a probability for each taxon class from the RGB images | notebooks/IDTReeS_RGB.ipynb | Python
 (2) Extract hyperspectral data at each tree crown centroid | https://github.com/earthlab/neonhs | R
-(3) Generate pseudowaveforms from the lidar point cloud | notebooks/file.ipynb | Google Colab, Python
-(4) Fusion network classifier using all remote sensing features | notebooks/file.ipynb | Google Colab, Python
+(3) Generate pseudowaveforms from the lidar point cloud | notebooks/lidar_data_processing.ipynb | Python
+(4) Fusion network classifier using all remote sensing features | notebooks/idtrees-tabular.ipynb | Python
 (5) Create additional figures for manuscript | R/create_figures.R | R
 
