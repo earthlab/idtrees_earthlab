@@ -19,11 +19,11 @@ We utilized three of the four available remote sensing data types:
 
 Our workflow includes the following major computational steps: 
 
-File or source | Processing step | Coding language or tool 
+Processing step | File or source | Coding language or tool 
 ---- | --------------- | -------------
-notebooks/file.ipynb | Resnet CNN to generate a probability for each taxon class from the RGB images | Google Colab, Python
-https://github.com/earthlab/neonhs | Extract hyperspectral data at each tree crown centroid | R
-notebooks/file.ipynb | Generate pseudowaveforms from the lidar point cloud | Google Colab, Python
-notebooks/file.ipynb | Fusion network classifier using all remote sensing features | Google Colab, Python
-R/create_figures.R | Create additional figures for manuscript | R
+(1) Resnet CNN to generate a probability for each taxon class from the RGB images | notebooks/file.ipynb | Google Colab, Python
+(2) Extract hyperspectral data at each tree crown centroid | https://github.com/earthlab/neonhs | R
+(3) Generate pseudowaveforms from the lidar point cloud | notebooks/file.ipynb | Google Colab, Python
+(4) Fusion network classifier using all remote sensing features | notebooks/file.ipynb | Google Colab, Python
+(5) Create additional figures for manuscript | R/create_figures.R | R
 
