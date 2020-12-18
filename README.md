@@ -23,6 +23,6 @@ Processing step | File or source | Coding language
 ---- | --------------- | -------------
 (1) Resnet CNN to generate a probability for each taxon class from the RGB images | IDTReeS_RGB.ipynb | Python
 (2) Extract hyperspectral data at each tree crown centroid | https://github.com/earthlab/neonhs | R
-(3) Generate pseudowaveforms from the lidar point cloud | lidar_data_processing.ipynb | Python
+(3) Generate pseudowaveforms within each tree polygon using lidar point cloud data | lidar_data_processing.ipynb | Python
 (4) Fusion network classifier using all remote sensing features | idtrees-tabular.ipynb | Python
 (5) Create additional figures for manuscript | create_figures.R | R
